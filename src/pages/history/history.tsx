@@ -2,7 +2,7 @@ import { View, Text } from '@tarojs/components'
 import { useCallback, useMemo } from 'react'
 import Taro from '@tarojs/taro'
 import { useAppContext } from '../../context/AppContext'
-import './history.scss'
+import './history-page.scss'
 
 function formatDate(timestamp: number): string {
   const date = new Date(timestamp)
@@ -35,7 +35,7 @@ export default function History() {
   return (
     <View className='history'>
       <View className='history__summary'>
-        <Text className='history__count'>累计掌握 {learnHistory.length} 个单词</Text>
+        <Text className='history__count'>{`累计掌握 ${learnHistory.length} 个单词`}</Text>
       </View>
 
       {sortedHistory.length === 0 ? (
