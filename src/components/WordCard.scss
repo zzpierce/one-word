@@ -1,0 +1,59 @@
+.word-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 32px 24px;
+  margin: 0 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+  &__header {
+    text-align: center;
+    margin-bottom: 24px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  &__spell {
+    display: block;
+    font-size: 36px;
+    font-weight: 700;
+    color: #333333;
+    margin-bottom: 8px;
+  }
+
+  &__phonetic {
+    display: block;
+    font-size: 16px;
+    color: #888888;
+  }
+
+  &__meaning,
+  &__example {
+    margin-bottom: 20px;
+  }
+
+  &__label {
+    display: block;
+    font-size: 12px;
+    color: #07c160;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  &__text {
+    display: block;
+    font-size: 16px;
+    color: #333333;
+    line-height: 1.6;
+
+    &--en {
+      color: #555555;
+    }
+
+    &--cn {
+      color: #888888;
+      font-size: 14px;
+      margin-top: 4px;
+    }
+  }
+}
