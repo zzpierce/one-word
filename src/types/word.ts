@@ -7,7 +7,7 @@ export interface Word {
     en: string;
     cn: string;
   };
-  difficulty: 1 | 2 | 3;
+  difficulty: 1 | 2 | 3 | 4 | 5 | 6 | 7;
 }
 
 export interface LearnRecord {

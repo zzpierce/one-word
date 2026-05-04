@@ -7,16 +7,24 @@ interface WordDetailPanelProps {
   onGoRecite: () => void;
 }
 
-const DIFFICULTY_LABELS: Record<1 | 2 | 3, string> = {
-  1: '简单',
-  2: '中等',
-  3: '困难',
+const DIFFICULTY_LABELS: Record<1 | 2 | 3 | 4 | 5 | 6 | 7, string> = {
+  1: '入门',
+  2: '初级',
+  3: '基础',
+  4: '中级',
+  5: '中高级',
+  6: '高级',
+  7: '精通',
 };
 
-const DIFFICULTY_COLORS: Record<1 | 2 | 3, string> = {
+const DIFFICULTY_COLORS: Record<1 | 2 | 3 | 4 | 5 | 6 | 7, string> = {
   1: '#4ade80',
-  2: '#22d3ee',
-  3: '#6366f1',
+  2: '#34d399',
+  3: '#22d3ee',
+  4: '#38bdf8',
+  5: '#6366f1',
+  6: '#a855f7',
+  7: '#d946ef',
 };
 
 export default function WordDetailPanel({
