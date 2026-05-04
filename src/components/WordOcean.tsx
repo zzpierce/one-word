@@ -6,6 +6,7 @@ import WordTile from './WordTile';
 import './WordOcean.scss';
 
 const ROWS = 5;
+const LEVEL_COUNT = 7;
 
 interface WordOceanProps {
   words: Word[];
@@ -28,14 +29,14 @@ export default function WordOcean({
 }: WordOceanProps) {
   const columns = useMemo<TileEntry[][]>(() => {
     const sorted = [...words].sort((a, b) => a.difficulty - b.difficulty);
-    const cnt1 = sorted.filter((w) => w.difficulty === 1).length;
-    const cnt2 = sorted.filter((w) => w.difficulty === 2).length;
-    const cnt3 = sorted.length - cnt1 - cnt2;
+
+    const counts: number[] = Array(LEVEL_COUNT).fill(0);
+    for (const w of sorted) counts[w.difficulty - 1]++;
 
     const entries: TileEntry[] = sorted.map((word, i) => {
-      const startColor = getColorAt(i, cnt1, cnt2, cnt3);
+      const startColor = getColorAt(i, counts);
       const endIndex = Math.min(i + 1, sorted.length - 1);
-      const endColor = getColorAt(endIndex, cnt1, cnt2, cnt3);
+      const endColor = getColorAt(endIndex, counts);
       return { word, startColor, endColor };
     });
 

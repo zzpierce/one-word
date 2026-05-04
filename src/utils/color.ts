@@ -25,25 +25,38 @@ export function lerpColor(hexA: string, hexB: string, t: number): string {
   return `rgb(${r}, ${g}, ${bl})`;
 }
 
-export function getColorAt(
-  sortedIndex: number,
-  cnt1: number,
-  cnt2: number,
-  cnt3: number
-): string {
-  if (sortedIndex < cnt1) {
-    const denom = cnt1 - 1;
-    const t = denom <= 0 ? 0 : sortedIndex / denom;
-    return lerpColor('#4ade80', '#22d3ee', t);
+/**
+ * 颜色锚点：N 段渐变需要 N+1 个锚点。
+ * 当前 7 段（L1..L7）配 8 锚点：草绿 → 翠绿 → 浅青 → 天蓝 → 紫蓝 → 紫罗兰 → 紫红 → 粉红。
+ */
+export const PALETTE_ANCHORS = [
+  '#4ade80',
+  '#34d399',
+  '#22d3ee',
+  '#38bdf8',
+  '#6366f1',
+  '#a855f7',
+  '#d946ef',
+  '#ec4899',
+] as const;
+
+/**
+ * 在 N 段渐变色卡上根据全局排序索引取色。
+ * - counts[i] 表示第 i 段的词数（i 从 0 开始）
+ * - 段数 = counts.length；要求 PALETTE_ANCHORS.length === counts.length + 1
+ * - 空段（counts[i] === 0）自动跳过
+ */
+export function getColorAt(sortedIndex: number, counts: number[]): string {
+  let acc = 0;
+  for (let seg = 0; seg < counts.length; seg++) {
+    const segLen = counts[seg];
+    if (segLen === 0) continue;
+    if (sortedIndex < acc + segLen) {
+      const denom = segLen - 1;
+      const t = denom <= 0 ? 0 : (sortedIndex - acc) / denom;
+      return lerpColor(PALETTE_ANCHORS[seg], PALETTE_ANCHORS[seg + 1], t);
+    }
+    acc += segLen;
   }
-  if (sortedIndex < cnt1 + cnt2) {
-    const k = sortedIndex - cnt1;
-    const denom = cnt2 - 1;
-    const t = denom <= 0 ? 0 : k / denom;
-    return lerpColor('#22d3ee', '#6366f1', t);
-  }
-  const k = sortedIndex - cnt1 - cnt2;
-  const denom = cnt3 - 1;
-  const t = denom <= 0 ? 0 : k / denom;
-  return lerpColor('#6366f1', '#ec4899', t);
+  return PALETTE_ANCHORS[PALETTE_ANCHORS.length - 1];
 }
